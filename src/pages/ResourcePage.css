@@ -1,0 +1,387 @@
+
+.resource-page-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  padding-top: 60px;
+}
+
+/* Resource Header Styles */
+.resource-header {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 2rem;
+}
+
+.resource-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.resource-title {
+  font-size: 2.5rem;
+  color: #2c3e50;
+  margin: 0;
+  font-weight: 700;
+}
+
+.availability-badge {
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.available {
+  background: rgba(46, 213, 115, 0.1);
+  color: #2ed573;
+}
+
+.unavailable {
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff4757;
+}
+
+.resource-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.resource-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+}
+
+.detail-icon {
+  color: rgba(225,152,17,0.84);
+  font-size: 1.2rem;
+}
+
+.view-more-resources {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(225,152,17,0.84);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.view-more-resources:hover {
+  transform: translateY(-2px);
+  background: rgba(225,152,17,1);
+  box-shadow: 0 5px 15px rgba(225,152,17,0.3);
+}
+
+.arrow-icon {
+  transition: transform 0.3s ease;
+}
+
+.view-more-resources:hover .arrow-icon {
+  transform: translateX(5px);
+}
+
+/* Reviews Section Styles */
+.reviews-section {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.section-title {
+  font-size: 2rem;
+  color: #2c3e50;
+  margin-bottom: 2rem;
+  font-weight: 700;
+}
+
+.review-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.review-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.review-avatar {
+  width: 45px;
+  height: 45px;
+  background: rgba(225,152,17,0.84);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.review-info {
+  flex: 1;
+}
+
+.review-user {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+.star-rating {
+  display: flex;
+  gap: 0.2rem;
+}
+
+.star {
+  font-size: 1rem;
+}
+
+.star.filled {
+  color: rgba(225,152,17,0.84);
+}
+
+.star.empty {
+  color: #ddd;
+}
+
+.review-comment {
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.leave-review-form {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.leave-review-form h3 {
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .resource-page-container {
+    margin: 1rem auto;
+  }
+
+  .resource-header,
+  .reviews-section {
+    padding: 1.5rem;
+  }
+
+  .resource-title {
+    font-size: 2rem;
+  }
+
+  .review-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Review form */
+
+/* Add these styles to your ResourcePage.css */
+
+.leave-review-form {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 2.5rem;
+  margin-top: 3rem;
+}
+
+.review-form-title {
+  color: #050506;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.review-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.rating-section {
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.rating-section label {
+  display: block;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.star-rating-input {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.star-rating-input .star {
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.star-rating-input .star:hover {
+  transform: scale(1.2);
+}
+
+.star-rating-input .star.empty {
+  color: #ddd;
+}
+
+.star-rating-input .star.filled {
+  color: rgba(225,152,17,0.84);
+}
+
+.comment-section {
+  margin-bottom: 2rem;
+}
+
+.comment-section label {
+  display: block;
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.comment-input {
+  width: 100%;
+  min-height: 150px;
+  padding: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 1rem;
+  line-height: 1.5;
+  resize: vertical;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.comment-input:focus {
+  outline: none;
+  border-color: rgba(225,152,17,0.84);
+  box-shadow: 0 0 0 3px rgba(225,152,17,0.1);
+}
+
+.comment-input::placeholder {
+  color: #a0aec0;
+}
+
+/* .submit-review-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  background: rgba(225,152,17,0.84);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  min-width: 150px;
+} */
+
+.submit-review-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 0.8rem 2rem;
+  background: rgba(232, 229, 225, 0.84);
+  color: #000000; 
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: auto;
+  min-width: 150px;
+}
+
+.submit-review-btn:hover {
+  background: rgba(225,152,17,1);
+  color: #000000; /* Keeping text black on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(225,152,17,0.3);
+}
+
+.submit-review-btn:active {
+  transform: translateY(0);
+  color: #000000; /* Ensuring text stays black when button is pressed */
+}
+.submit-review-btn:hover {
+  background: rgba(225,152,17,1);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(225,152,17,0.3);
+}
+
+.submit-review-btn:active {
+  transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .leave-review-form {
+    padding: 1.5rem;
+  }
+
+  .review-form-title {
+    font-size: 1.5rem;
+  }
+
+  .star-rating-input .star {
+    font-size: 1.5rem;
+  }
+
+  .comment-input {
+    min-height: 120px;
+  }
+}
