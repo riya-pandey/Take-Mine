@@ -1,89 +1,143 @@
-// src/pages/Home.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import './Home.css';
 
 const Home = () => {
   return (
-    <div className="home-page">
-  
-      <section 
-        className="hero-section" 
-        style={{ backgroundImage: 'url(/home3.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}
-      >
-        <div className="hero-overlay">
-          <h1>Connecting Students with Resources and Knowledge</h1>
-          <p>Access, Share, and Borrow University Resources. Find Tutors, Expand Your Knowledge.</p>
-          <Link to="/search-items" className="cta-button">Start Searching</Link>
+    <div className="home-container">
+      <section className="hero">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="hero-content"
+        >
+          <h1>Share Resources.<br/>Find Tutors.<br/>Succeed Together.</h1>
+          <p>Your university's collaborative platform for sharing resources and connecting with peer tutors.</p>
+          <div className="hero-buttons">
+            <Link to="/login" className="primary-btn">Browse Resources</Link>
+            <Link to="/login" className="secondary-btn">Find Tutors</Link>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="featured-resources">
+        <h2>Featured Resources</h2>
+        <div className="resources-grid">
+          {featuredResources.map((resource, index) => (
+            <motion.div 
+              key={index}
+              whileHover={{ y: -10 }}
+              className="resource-card"
+            >
+              <div className="resource-image">
+                <img src={resource.image} alt={resource.title} />
+                <div className="resource-status">{resource.status}</div>
+              </div>
+              <div className="resource-info">
+                <h3>{resource.title}</h3>
+                <p>{resource.description}</p>
+                <Link to={`/resource/${resource.id}`} className="view-details">
+                  View Details →
+                </Link>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </section>
 
-      {/* Available Resources Section */}
-      <section className="available-resources">
-        <h2>Available Resources</h2>
-        <div className="resource-cards">
-          <div className="resource-card">
-            <img src="/1.png" alt="Resource 1" />
-            <h3>Resource 1</h3>
-            <p>Description of the resource.</p>
-            <Link to="/resource/1" className="view-btn">View Details</Link>
-          </div>
-          <div className="resource-card">
-            <img src="/2.png" alt="Resource 2" />
-            <h3>Resource 2</h3>
-            <p>Description of the resource.</p>
-            <Link to="/resource/2" className="view-btn">View Details</Link>
-          </div>
-          <div className="resource-card">
-            <img src="/3.png" alt="Resource 3" />
-            <h3>Resource 3</h3>
-            <p>Description of the resource.</p>
-            <Link to="/resource/3" className="view-btn">View Details</Link>
-          </div>
-          <div className="resource-card">
-            <img src="/4.png" alt="Resource 4" />
-            <h3>Resource 4</h3>
-            <p>Description of the resource.</p>
-            <Link to="/resource/4" className="view-btn">View Details</Link>
-          </div>
-          {/* Add more resource cards as needed */}
+      <section className="how-it-works">
+        <h2>How It Works</h2>
+        <div className="steps-container">
+          <motion.div 
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            className="step"
+          >
+            <div className="step-number">1</div>
+            <h3>Sign Up</h3>
+            <p>Create your account using your university email</p>
+          </motion.div>
+          <motion.div 
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            className="step"
+          >
+            <div className="step-number">2</div>
+            <h3>Browse</h3>
+            <p>Find resources or tutors you need</p>
+          </motion.div>
+          <motion.div 
+            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -50 }}
+            className="step"
+          >
+            <div className="step-number">3</div>
+            <h3>Connect</h3>
+            <p>Borrow items or schedule tutoring sessions</p>
+          </motion.div>
         </div>
       </section>
 
-
-      {/* Tutors Section */}
-      <section className="tutors-for-you">
-        <h2>Find Tutors</h2>
-        <div className="tutor-cards">
-          <div className="tutor-card">
-            <img src="/assets/tutor1.jpg" alt="Tutor 1" />
-            <h3>Tutor Name</h3>
-            <p>Subject</p>
-            <Link to="/tutor/1" className="view-btn">View Profile</Link>
-          </div>
-          {/* Add more tutor cards as needed */}
+      <section className="stats">
+        <div className="stat-item">
+          <h3>1000+</h3>
+          <p>Active Users</p>
+        </div>
+        <div className="stat-item">
+          <h3>500+</h3>
+          <p>Available Resources</p>
+        </div>
+        <div className="stat-item">
+          <h3>200+</h3>
+          <p>Expert Tutors</p>
         </div>
       </section>
 
-      {/* About Us Section */}
-      <section className="about-us">
-        <h2>About Us</h2>
-        <p>We are a platform dedicated to connecting students by sharing resources, finding tutors, and building a community.</p>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="testimonials">
-        <h2>What Our Users Say</h2>
-        <div className="testimonial-cards">
-          <div className="testimonial-card">
-            <p>"This platform helped me find the perfect tutor for my courses!"</p>
-            <h4>- John Doe, Student</h4>
-          </div>
-          {/* Add more testimonial cards as needed */}
-        </div>
+      <section className="cta">
+        <motion.div 
+          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          className="cta-content"
+        >
+          <h2>Ready to Get Started?</h2>
+          <p>Join our community of students helping students</p>
+          <Link to="/signup" className="cta-button">Sign Up Now</Link>
+        </motion.div>
       </section>
     </div>
   );
 };
+
+const featuredResources = [
+  {
+    id: 1,
+    title: "Physics Textbook",
+    description: "Latest edition, perfect for PHY101",
+    status: "Available",
+    image: "/1.png"
+  },
+  {
+    id: 2,
+    title: "Graphing Calculator",
+    description: "TI-84 Plus, great for calculus",
+    status: "Available",
+    image: "/2.png"
+  },
+  {
+    id: 3,
+    title: "Lab Equipment",
+    description: "Chemistry lab kit",
+    status: "Limited",
+    image: "/3.png"
+  },
+  {
+    id: 4,
+    title: "Study Notes",
+    description: "Comprehensive CS notes",
+    status: "Available",
+    image: "/4.png"
+  }
+];
 
 export default Home;

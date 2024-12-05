@@ -7,6 +7,9 @@ import './Header.css';
 const Header = () => {
   const { user, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
+  
+  const userType = localStorage.getItem('usertype');
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,25 +36,41 @@ const Header = () => {
 
         <nav className="nav-container">
           <ul className="nav-list">
-            <li className="nav-item">
-              <Link to="/about" className="nav-link">About Us</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/search-items" className="nav-link">Search Items</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/availableresource" className="nav-link">Available Resources</Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/tutors" className="nav-link">Tutors for You</Link>
-            </li>
+            {userType === 'Admin' ? (
+              <>
+                <li className="nav-item">
+                  <Link to="/admin" className="nav-link">Admin Dashboard</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/manage-resources" className="nav-link">Manage Resources</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/manage-users" className="nav-link">Manage Users</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link to="/about" className="nav-link">About Us</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/search" className="nav-link">Search Items</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/availableresource" className="nav-link">Available Resources</Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/tutors" className="nav-link">Tutors for You</Link>
+                </li>
+              </>
+            )}
             
-            {user ? (
+            {user && (
               <>
                 <li className="nav-item">
                   <Link to="/profile" className="nav-link profile-link">
                     <span className="profile-icon">👤</span>
-                    Profile
+                    {user.username}
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -60,7 +79,9 @@ const Header = () => {
                   </button>
                 </li>
               </>
-            ) : (
+            )}
+            
+            {!user && (
               <>
                 <li className="nav-item">
                   <Link to="/login" className="nav-link login-link">Login</Link>

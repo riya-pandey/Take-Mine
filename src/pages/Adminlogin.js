@@ -12,36 +12,41 @@ class LoginAdmin extends Component {
     isLoading: false
   };
 
-  usernameChangeHandler = (event) => {
-    this.setState({ username: event.target.value });
-  };
-
-  passwordChangeHandler = (event) => {
-    this.setState({ password: event.target.value });
-  };
-
   submitLogin = (e) => {
     e.preventDefault();
     this.setState({ isLoading: true });
     
-    axios
-      .post("http://localhost:90/admin/login", this.state)
-      .then((response) => {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("usertype", "Admin");
-        window.location.href = "/";
-      })
-      .catch((err) => {
-        alert("Invalid username or password. Please try again.");
-      })
-      .finally(() => {
-        this.setState({ isLoading: false });
-      });
+    // Demo credentials
+    const demoCredentials = {
+      username: "admin",
+      password: "admin123"
+    };
+
+    if (this.state.username === demoCredentials.username && 
+        this.state.password === demoCredentials.password) {
+      // Store admin info in localStorage
+      localStorage.setItem("token", "demo-admin-token");
+      localStorage.setItem("usertype", "Admin");
+      localStorage.setItem("user", JSON.stringify({
+        username: demoCredentials.username,
+        role: "Admin"
+      }));
+      
+      // Redirect to home page
+      window.location.href = "/";
+    } else {
+      alert("Invalid credentials! Use admin/admin123");
+    }
+
+    this.setState({ isLoading: false });
   };
 
 
-
   render() {
+    if (this.state.isLoggedIn) {
+      window.location.href = "/"; // Redirect to the home page
+    }
+
     return (
       <div className="page-wrapper">
         <Container className="d-flex justify-content-center align-items-center min-vh-100">
@@ -49,14 +54,14 @@ class LoginAdmin extends Component {
             <div className="logo-section text-center mb-4">
               <img src="/take.png" alt="Logo" className="logo-img" />
             </div>
-            
+
             <Card className="login-card">
               <Card.Body className="p-4">
                 <div className="text-center mb-4">
                   <h2 className="login-title">Admin Login</h2>
                   <p className="text-muted">Welcome back! Please login to continue</p>
                 </div>
-                
+
                 <Form onSubmit={this.submitLogin}>
                   <Form.Group className="mb-3">
                     <div className="input-group">
@@ -88,12 +93,12 @@ class LoginAdmin extends Component {
                     </div>
                   </Form.Group>
 
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="login-button w-100"
                     disabled={this.state.isLoading}
                   >
-                    {this.state.isLoading ? 'Signing in...' : 'Sign In'}
+                    {this.state.isLoading ? "Signing in..." : "Sign In"}
                   </Button>
                 </Form>
               </Card.Body>

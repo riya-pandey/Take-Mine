@@ -1,127 +1,143 @@
+// UserProfile.js
 import React, { useState, useEffect } from 'react';
-import { getUserProfile, updateUserProfile, listResource } from '../utils/api';
-import ResourceCard from '../components/ResourceCard';
+import { useAuth } from '../context/Authcontext';
+import './UserProfile.css';
 
-function UserProfile() {
-  const [user, setUser] = useState(null);
-  const [newResource, setNewResource] = useState({
+const UserProfile = () => {
+  const { user } = useAuth();
+  const [profileData, setProfileData] = useState({
     name: '',
-    location: '',
-    description: '',
-    cost: '',
-    availability: true,
+    email: '',
+    avatar: '',
+    department: '',
+    studentId: ''
   });
+  const [borrowedItems, setBorrowedItems] = useState([]);
+  const [addedItems, setAddedItems] = useState([]);
+  const [activeTab, setActiveTab] = useState('profile');
 
-  // Fetch the user's profile when the component mounts
-  useEffect(() => {
-    const fetchUserProfile = async () => {
-      const data = await getUserProfile();
-      setUser(data);
-    };
-    fetchUserProfile();
-  }, []);
-
-  const handleProfileUpdate = async () => {
-    try {
-      const updatedUser = await updateUserProfile(user);
-      setUser(updatedUser);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
+  const handleProfileUpdate = (e) => {
+    e.preventDefault();
+    // Handle profile update logic
   };
 
-  const handleResourceListing = async () => {
-    try {
-      const newResourceData = await listResource(newResource);
-      setUser((prevUser) => ({
-        ...prevUser,
-        resources: [...prevUser.resources, newResourceData],
-      }));
-      setNewResource({
-        name: '',
-        location: '',
-        description: '',
-        cost: '',
-        availability: true,
-      });
-    } catch (error) {
-      console.error('Error listing resource:', error);
-    }
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    // Handle image upload logic
   };
-
-  if (!user) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto py-16 px-4">
-      <h1 className="text-3xl font-bold mb-8">Your Profile</h1>
-      <div className="bg-white rounded-lg shadow-md p-8">
-        <div className="mb-6">
-          <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
-            Name
+    <div className="profile-container">
+      <div className="profile-sidebar">
+        <div className="profile-avatar">
+          <img src={profileData.avatar || '/default-avatar.png'} alt="Profile" />
+          <label className="avatar-upload">
+            <input type="file" onChange={handleImageUpload} accept="image/*" />
+            <span>Update Photo</span>
           </label>
-          <input
-            type="text"
-            id="name"
-            value={user.name}
-            onChange={(e) => setUser({ ...user, name: e.target.value })}
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-dark-orange"
-          />
         </div>
-        <div className="mb-6">
-          <label htmlFor="email" className="block text-gray-700 font-medium mb-2">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={user.email}
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
-            className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-dark-orange"
-          />
-        </div>
-        <button
-          onClick={handleProfileUpdate}
-          className="bg-dark-orange text-white font-medium py-3 px-6 rounded-lg hover:bg-orange-500"
-        >
-          Update Profile
-        </button>
-      </div>
-
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-4">Your Listed Resources</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {user.resources.map((resource) => (
-            <ResourceCard key={resource.id} resource={resource} />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold mb-4">List a New Resource</h2>
-        <div className="bg-white rounded-lg shadow-md p-8">
-          <div className="mb-6">
-            <label htmlFor="name" className="block text-gray-700 font-medium mb-2">
-              Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={newResource.name}
-              onChange={(e) => setNewResource({ ...newResource, name: e.target.value })}
-              className="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-dark-orange"
-            />
-          </div>
-          {/* Add more form fields for location, description, cost, and availability */}
-          <button
-            onClick={handleResourceListing}
-            className="bg-dark-orange text-white font-medium py-3 px-6 rounded-lg hover:bg-orange-500"
+        <nav className="profile-nav">
+          <button 
+            className={activeTab === 'profile' ? 'active' : ''} 
+            onClick={() => setActiveTab('profile')}
           >
-            List Resource
+            Profile Details
           </button>
-        </div>
+          <button 
+            className={activeTab === 'borrowed' ? 'active' : ''} 
+            onClick={() => setActiveTab('borrowed')}
+          >
+            Borrowed Items
+          </button>
+          <button 
+            className={activeTab === 'added' ? 'active' : ''} 
+            onClick={() => setActiveTab('added')}
+          >
+            My Added Items
+          </button>
+        </nav>
+      </div>
+
+      <div className="profile-content">
+        {activeTab === 'profile' && (
+          <div className="profile-details">
+            <h2>Profile Information</h2>
+            <form onSubmit={handleProfileUpdate}>
+              <div className="form-group">
+                <label>Full Name</label>
+                <input 
+                  type="text" 
+                  value={profileData.name}
+                  onChange={(e) => setProfileData({...profileData, name: e.target.value})}
+                />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input 
+                  type="email" 
+                  value={profileData.email}
+                  onChange={(e) => setProfileData({...profileData, email: e.target.value})}
+                />
+              </div>
+              <div className="form-group">
+                <label>Semester</label>
+                <input 
+                  type="text" 
+                  value={profileData.department}
+                  onChange={(e) => setProfileData({...profileData, department: e.target.value})}
+                />
+              </div>
+              <div className="form-group">
+                <label>Student ID</label>
+                <input 
+                  type="text" 
+                  value={profileData.studentId}
+                  onChange={(e) => setProfileData({...profileData, studentId: e.target.value})}
+                />
+              </div>
+              <button type="submit" className="update-btn">Update Profile</button>
+            </form>
+          </div>
+        )}
+
+        {activeTab === 'borrowed' && (
+          <div className="borrowed-items">
+            <h2>Borrowed Items</h2>
+            <div className="items-grid">
+              {borrowedItems.map(item => (
+                <div key={item.id} className="item-card">
+                  <img src={item.image} alt={item.name} />
+                  <h3>{item.name}</h3>
+                  <p>Borrowed: {item.borrowDate}</p>
+                  <p>Return by: {item.returnDate}</p>
+                  <button className="return-btn">Return Item</button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'added' && (
+          <div className="added-items">
+            <h2>My Added Items</h2>
+            <div className="items-grid">
+              {addedItems.map(item => (
+                <div key={item.id} className="item-card">
+                  <img src={item.image} alt={item.name} />
+                  <h3>{item.name}</h3>
+                  <p>{item.description}</p>
+                  <div className="item-actions">
+                    <button className="edit-btn">Edit</button>
+                    <button className="delete-btn">Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default UserProfile;

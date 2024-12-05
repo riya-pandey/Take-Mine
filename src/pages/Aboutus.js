@@ -1,78 +1,116 @@
 import React from 'react';
 import './Aboutus.css';
+import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 function AboutUs() {
   return (
-    <div className="about-us-page">
-
-      <section className="hero-section">
-        <div className="hero-content">
-          <h1 className="hero-title">Welcome to TakeMine</h1>
-          <p className="hero-description">Your University Resource Hub — Connecting Knowledge, Resources, and Students.</p>
-        </div>
-        <div className="hero-image">
-          <img src="2.jpg" alt="University Campus" />
-        </div>
+    <div className="about-container">
+      <section className="hero">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="hero-content"
+        >
+          <h1>Empowering Student Success Through Sharing</h1>
+          <p>TakeMine connects students to share resources and knowledge, making education more accessible for everyone.</p>
+        </motion.div>
       </section>
 
-      {/* Our Mission Section */}
-      <section className="mission-section">
-        <h2>Our Mission</h2>
-        <p>At TakeMine, our mission is to make learning more accessible by providing students with the best educational resources, tutors, and support systems. We aim to bridge the gap between students and the tools they need to succeed academically.</p>
-      </section>
+      <section className="mission-vision">
+        <div className="container">
+          <motion.div 
+            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            className="mission-card"
+          >
+         <div class="mission-section">
+  <h2>Our Mission</h2>
+  <p>
+    Welcome to <strong>TakeMine!</strong><br/>
+    At TakeMine, we are dedicated to helping students achieve more by 
+    providing access to essential resources. Whether it’s textbooks, 
+    equipment, or academic materials, we make borrowing and sharing seamless, 
+    fostering a community of collaboration and support. We believe that no student should 
+    be held back due to the lack of access to resources. <strong>TakeMine</strong> is here to bridge that gap, 
+    making learning more accessible and collaborative for everyone.
+  </p>
+</div>
 
-      {/* Our Core Values Section */}
-      <section className="values-section">
-        <h2>Our Core Values</h2>
-        <div className="values-list">
-          <div className="value-card">
-            <h3>Innovation</h3>
-            <p>Constantly evolving to offer the best learning solutions for students.</p>
-          </div>
-          <div className="value-card">
-            <h3>Collaboration</h3>
-            <p>Building a strong community between students, tutors, and resources.</p>
-          </div>
-          <div className="value-card">
-            <h3>Integrity</h3>
-            <p>Maintaining transparency and trust in all our interactions.</p>
-          </div>
-        </div>
-      </section>
+ 
 
-      {/* Our Team Section */}
-      <section className="team-section">
-        <h2>Meet Our Team</h2>
-        <div className="team-members">
-          <div className="team-member">
-            <img src="1.png" alt="Team Member" />
-            <h3>John Doe</h3>
-            <p>CEO & Founder</p>
-          </div>
-          <div className="team-member">
-            <img src="2.jpg" alt="Team Member" />
-            <h3>Jane Smith</h3>
-            <p>Chief Operating Officer</p>
-          </div>
-          <div className="team-member">
-            <img src="3.png" alt="Team Member" />
-            <h3>Robert Brown</h3>
-            <p>Lead Developer</p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* History Section */}
-      <section className="history-section">
-        <h2>Our History</h2>
-        <p>Founded in 2020, TakeMine has become a trusted platform for students across the globe. Starting as a small project to help peers share textbooks, we’ve expanded to offer a full range of resources, including tutoring, academic tools, and peer-to-peer knowledge sharing.</p>
+      <section className="features">
+        <h2>What We Offer</h2>
+        <div className="features-grid">
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="feature-card"
+          >
+            <div className="icon">📚</div>
+            <h3>Resource Sharing</h3>
+            <p>Borrow textbooks, lab equipment, and study materials from fellow students</p>
+          </motion.div>
+
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="feature-card"
+          >
+            <div className="icon">👥</div>
+            <h3>Peer Tutoring</h3>
+            <p>Connect with experienced student tutors for personalized learning support</p>
+          </motion.div>
+
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="feature-card"
+          >
+            <div className="icon">🤝</div>
+            <h3>Community</h3>
+            <p>Join a thriving community of students helping students</p>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="cta-section">
-        <h2>Ready to Explore Resources?</h2>
-        <p>Join TakeMine today and gain access to a wide range of learning materials and expert tutors. Let us help you achieve your academic goals.</p>
-        <button className="cta-button">Get Started</button>
+      <section className="impact">
+        <div className="impact-stats">
+          <div className="stat">
+            <h3>1000+</h3>
+            <p>Active Users</p>
+          </div>
+          <div className="stat">
+            <h3>500+</h3>
+            <p>Resources Shared</p>
+          </div>
+          <div className="stat">
+            <h3>200+</h3>
+            <p>Verified Tutors</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="join-us">
+        <motion.div 
+          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          className="join-content"
+        >
+        <div class="why-choose-takemine">
+  <h2>Why Choose TakeMine?</h2>
+  
+    <li><strong>Accessibility:</strong> Bridging the gap between students and resources.</li>
+    <li><strong>Community:</strong> Building connections through sharing and collaboration.</li>
+    <li><strong>Simplicity:</strong> Intuitive features to borrow, share, and manage effortlessly.</li>
+
+</div>
+
+          <Link to="/login" className="cta-button">
+  Get Started
+</Link>
+        </motion.div>
       </section>
     </div>
   );
